@@ -1,0 +1,19 @@
+{
+  "name": "rxjs-quickstart",
+  "version": "1.0.0",
+  "description": "RxJS quick start",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "author": "Deva",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^6.5.3",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
