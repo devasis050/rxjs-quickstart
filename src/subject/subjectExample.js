@@ -1,4 +1,5 @@
-import { Subject } from 'rxjs';
+import { Subject, interval } from 'rxjs';
+import { multicast } from 'rxjs/operators';
 
 export function subjectSample() {
     const subject = new Subject();
@@ -20,6 +21,22 @@ export function subjectSample() {
 export function subjectAsObserver() {
 
     const subject = new Subject();
+    subject.subscribe(createSubscriber('subscriber1'));
+    subject.subscribe(createSubscriber('subscriber2'));
+    const obs = interval(1000);
+    const subscription = obs.subscribe(subject);
+    setTimeout(() => subject.unsubscribe(), 3000);
+    // Error logged as subject.next() is invoked after it is closed
+}
+
+// Similar to subjectAsObserver()
+export function multicastExample() {
+    const subject = new Subject();
+    const obs = interval(1000);
+    const multicasted = obs.pipe(multicast(subject));
+    multicasted.subscribe(createSubscriber('subscriber'));
+    multicasted.connect();
+    setTimeout(() => subject.unsubscribe(), 3000);
 }
 
 function createSubscriber(name) {
